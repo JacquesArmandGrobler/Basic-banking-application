@@ -9,7 +9,7 @@ public class Main {
 
         String user_userName;
         int user_password;
-        int counter = 0, tries =3;
+        int counter = 0, tries =3, positionFinder = 0;
 
         String[] userName = {"Tian", "Jacques", "Julia", "Bunny"};
         int[] password = {5535, 8543, 2022, 1234};
@@ -17,34 +17,34 @@ public class Main {
         System.out.println("Enter your username:");
         user_userName = scan.nextLine();
 
-        //Using a for loop that will break when it finds the matching username entered that is in the array.
-        for (int i = 0; i <4; i++) {
-
-            if (userName[i].equals(user_userName)) {
-                System.out.println("Username APPROVED.");
-                System.out.println("Enter your password:");
-                user_password = scan.nextInt();
-
-                while (password[i] != user_password && counter != 2) {
-                    counter +=1;
-                    tries -= 1;
-                    System.out.println("You have " + tries + " attempts remaining" );
-                    System.out.println("Your password is incorrect");
-                    user_password = scan.nextInt();
-                }
-
-                //This is completely unnecessary but im keeping it for the clarity.
-                if (password[i] == user_password){
-                    System.out.println("Your password was approved");
-                    System.out.println("Welcome to your account "+ userName[i]);
-                    String name_of_user = userName[i];
-                    bankMenu(name_of_user);
-                }else{
-                    System.out.println("Incorrect password has been entered too many times. Bye Bye");
-                }
-                //To break the for loop after the matched username has been found and if the password matches or not it will break
+        for (int i = 0; i<4;i++){
+            if (userName[i].equals(user_userName)){
+                positionFinder = i;
                 break;
             }
+        }
+        //Using a for loop that will break when it finds the matching username entered that is in the array.
+                  if (userName[positionFinder].equals(user_userName)) {
+                    System.out.println("Username APPROVED.");
+                    System.out.println("Enter your password:");
+                    user_password = scan.nextInt();
+
+                    while (password[positionFinder] != user_password && counter != 2) {
+                        counter += 1;
+                        tries -= 1;
+                        System.out.println("You have " + tries + " attempts remaining");
+                        System.out.println("Your password is incorrect");
+                        user_password = scan.nextInt();
+                    }
+
+                    //This is completely unnecessary but im keeping it for the clarity.
+                    if (password[positionFinder] == user_password) {
+                        System.out.println("Your password was approved");
+                        System.out.println("Welcome to your account " + userName[positionFinder]);
+                        String name_of_user = userName[positionFinder];
+                        bankMenu(name_of_user);
+                    }
+                    //To break the for loop after the matched username has been found and if the password matches or not it will break
         }
         scan.close();
     }
